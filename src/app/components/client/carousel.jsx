@@ -29,7 +29,7 @@ const Carousel = ({ slides }) => {
                 data-carousel-item
             >
                 <img
-                    src={slides.src}
+                    src={'https://c8.alamy.com/comp/RH9BA1/internet-marketing-symbol-with-shopping-cart-e-commerce-symbol-on-digital-background-online-business-3d-illustration-RH9BA1.jpg'}
                     className="absolute inset-0 w-full h-full object-cover"
                     alt={slide.alt}
                 />

@@ -1,20 +1,40 @@
-'use client'
-import { useRouter } from 'next/navigation';
 import React from 'react';
-import Products from '../../components/admin/listProducts';
+import { CssBaseline, Container } from '@mui/material';
+import Dashboard from '../../components/admin/dashBoard';
+import { getAllCategories } from '../../services/CategoryService';
+import { getAllProducts } from '../../services/ProdcutService';
 
+const fetchCategories = async()=>{
+  const result=await getAllCategories();
+  if (result) {
+    console.log("ffdggdfsgbsdgd"+result);
+    return result;
+  }
+  return null;
+}
+  const fetchProducts = async()=>{
+    const result=await getAllProducts();
+    if (result) {
+      return result;  
+    }
+    return null;
+  }
 
-const Page = () => {
-  const router = useRouter();
-
-  // Use default value for pathname if router is not initialized yet
-  const pathname = router?.pathname ?? '';
-
-  return (
+const Page = async() => {
+  const categories=await fetchCategories();
   
+  const products=await fetchProducts();
+  
+  return (
+
       <div className="p-4 sm:ml-64 mt-14">
-       
-        {pathname.includes('products') ? <Products /> : <p>Welcome</p>}
+    <>
+        <p>Welcome</p>
+          <CssBaseline />
+          <Container>
+          <Dashboard/>
+          </Container>
+        </>
       </div>
     
   );

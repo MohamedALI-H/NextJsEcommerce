@@ -1,5 +1,5 @@
 import React from 'react';
-
+import DeleteProducts from './deleteProducts';
 
 const ProductDetail = ({ product }) => {
  
@@ -33,8 +33,11 @@ const ProductDetail = ({ product }) => {
                   <li key={key} className="text-gray-700"><strong>{key}:</strong> {product.properties[key]}</li>
                 ))}
               </ul>
-              <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">Add to Cart</button>
-       
+              <a href={`/admin/products/edit/${product._id}`}>
+              <button className="mt-4 m-3 px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">Edit</button>
+
+              </a>
+              <DeleteProducts productId={product.id}/>
             </div>
           </div>
         </div>

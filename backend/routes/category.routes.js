@@ -4,7 +4,7 @@ const router = express.Router();
 const auth = require("../middleware/auth.js");
 
   // Read all categories
-  router.get('/categories',auth, async (req, res) => {
+  router.get('/categories', async (req, res) => {
     try {
       const categories = await Category.find().sort({'name':1});
       res.send(categories);

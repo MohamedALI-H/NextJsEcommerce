@@ -3,10 +3,14 @@ import React, { useState } from 'react';
 
 import { Link } from '@mui/material';
 import UserMenu from './profileIcon';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+ import CartModal from "./shoppingCart/cartModal";
+import { useShoppingCart } from "use-shopping-cart" ;
 
 const NavBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+;
+const { handleCartClick, cartCount } = useShoppingCart();
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -82,17 +86,34 @@ const NavBar = () => {
               </li>
             </ul>
           </div>
+
           <div className="items-center justify-between mb-2 w-full md:flex md:w-auto md:order-1" id="navbar-search">
+              
+          
             <div className="relative mt-3 ">
+            <button className="items-center justify-between mb-4 w-full md:flex md:w-auto md:order-1 absolute ml-44" onClick={() => handleCartClick()}> <ShoppingCartIcon color="primary"/>
+<div className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+> {cartCount}
+                </div>
+              </button>
+              <CartModal />
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                 </svg>
               </div>
+            
               <input type="text" id="search-navbar" className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search..."/>
+           
             </div>
+           
           </div>
+       
+         
+           
+       
         </div>
+     
       </nav>
 
   );

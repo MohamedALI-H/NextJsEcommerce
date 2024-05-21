@@ -21,7 +21,7 @@ export const getAllProducts = async () => {
       cache: 'no-store' // Add cache-control: no-store
     });
     const result = await response.json();
-    console.log(result);
+    
     return result;
   } catch (error) {
     console.error('Error fetching products:', error.message);
@@ -31,7 +31,7 @@ export const getAllProducts = async () => {
 
 
 export const getProductById = async (id) => {
-  console.log(API_URL_Product+ id);
+  
   try {
     
     const response = await fetch(API_URL_Product + id);

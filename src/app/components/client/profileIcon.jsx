@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 
 import { SessionProvider,useSession, signIn, signOut } from "next-auth/react"
+
 const UserMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session } = useSession();
@@ -13,6 +14,7 @@ const UserMenu = () => {
   if (!session){
 return(
     <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+    
          <button onClick={() => signIn()} className="bg-white p-2 px-4 rounded-lg h-10">sign in </button>
         </div>
 )

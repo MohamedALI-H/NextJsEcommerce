@@ -1,9 +1,9 @@
 
-
+'use client'
 import React from 'react';
-import { deleteProductById } from '../../services/productService';
+import { deleteProductById } from '../../services/ProdcutService';
 
-const DeleteProduct = ({ productId }) => {
+const DeleteProducts = ({ productId }) => {
     const handleDelete = async () => {
         try {
             await deleteProductById(productId);
@@ -24,4 +24,4 @@ const DeleteProduct = ({ productId }) => {
     );
 };
 
-export default DeleteProduct;
+export default DeleteProducts;
