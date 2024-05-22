@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { BarChart } from '@mui/x-charts';
 import { Box, Typography } from '@mui/material';
+import { ResponsiveBar } from '@nivo/bar';
 
 const Dashboard = () => {
   const categories = [
@@ -36,7 +36,7 @@ const Dashboard = () => {
       "description": "Explore the MacBook range for powerful performance and sleek design.",
       "parent": null,
       "ancestors": [],
-      "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFjYm9va3xlbnwwfHwwfHx8MA%3D%3D",
+      "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFjYm9vayUyMHByb3xlbnwwfHwwfHx8MA%3D%3D",
       "isActive": true,
       "createdAt": "2024-05-01T12:00:00.000Z",
       "updatedAt": "2024-05-01T12:00:00.000Z"
@@ -119,7 +119,30 @@ const Dashboard = () => {
         "description": "Explore the MacBook range for powerful performance and sleek design.",
         "parent": null,
         "ancestors": [],
-        "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFjYm9va3xlbnwwfHwwfHx8MA%3D%3D",
+        "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFjYm9vayUyMHByb3xlbnwwfHwwfHx8MA%3D%3D",
+        "isActive": true,
+        "createdAt": "2024-05-01T12:00:00.000Z",
+        "updatedAt": "2024-05-01T12:00:00.000Z"
+      }
+    },
+    {
+      "_id": "66376e1a31d03e39f34f59e2",
+      "title": "Apple Watch Series 8",
+      "description": "Stay connected and healthy with Apple Watch.",
+      "price": 399.99,
+      "images": [
+        "https://flowbite.com/docs/images/products/apple-watch.png"
+      ],
+      "stockQuantity": 30,
+      "timesBought": 0,
+      "category": {
+        "_id": "66407d42a44ec7f75bd26fce",
+        "name": "Apple Watch",
+        "slug": "apple-watch",
+        "description": "Stay connected, stay healthy, and express your style with Apple Watch.",
+        "parent": null,
+        "ancestors": [],
+        "image": "https://flowbite.com/docs/images/products/apple-watch.png",
         "isActive": true,
         "createdAt": "2024-05-01T12:00:00.000Z",
         "updatedAt": "2024-05-01T12:00:00.000Z"
@@ -127,47 +150,97 @@ const Dashboard = () => {
     }
   ];
 
-  const [data, setData] = useState([]);
+  const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
-    const categoryCounts = categories.map((category) => {
-      const productCount = products.filter(
-        (product) => product.category._id === category._id
-      ).length;
+    const data = categories.map(category => {
+      const totalPrice = products
+        .filter(product => product.category._id === category._id)
+        .reduce((total, product) => total + product.price, 0);
+
       return {
         category: category.name,
-        productCount: productCount,
+        totalPrice,
+        color: getRandomColor()
       };
     });
 
-    const chartData = categoryCounts.map((count, index) => ({
-      x: count.category,
-      y: count.productCount,
-      color: ['#4caf50', '#2196f3', '#ff9800', '#f44336'][index % 4], // Adding colors
-    }));
-
-    setData(chartData);
+    setChartData(data);
   }, [categories, products]);
+
+  const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
 
   return (
     <Box>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Dashboard
+      <Typography variant="h4" align="center" gutterBottom>
+        Category Price Distribution
       </Typography>
-      {data.length > 0 ? (
-        <BarChart
-          series={[
+      <Box height="500px">
+        <ResponsiveBar
+          data={chartData}
+          keys={['totalPrice']}
+          indexBy="category"
+          margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+          padding={0.3}
+          colors={({ id, data }) => data.color}
+          borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+          axisTop={null}
+          axisRight={null}
+          axisBottom={{
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'Category',
+            legendPosition: 'middle',
+            legendOffset: 32
+          }}
+          axisLeft={{
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'Total Price',
+            legendPosition: 'middle',
+            legendOffset: -40
+          }}
+          labelSkipWidth={12}
+          labelSkipHeight={12}
+          labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+          legends={[
             {
-              label: 'Number of Products',
-              data: data,
-            },
+              dataFrom: 'keys',
+              anchor: 'bottom-right',
+              direction: 'column',
+              justify: false,
+              translateX: 120,
+              translateY: 0,
+              itemsSpacing: 2,
+              itemWidth: 100,
+              itemHeight: 20,
+              itemDirection: 'left-to-right',
+              itemOpacity: 0.85,
+              symbolSize: 20,
+              effects: [
+                {
+                  on: 'hover',
+                  style: {
+                    itemOpacity: 1
+                  }
+                }
+              ]
+            }
           ]}
-          width={500}
-          height={300}
+          animate={true}
+          motionStiffness={90}
+          motionDamping={15}
         />
-      ) : (
-        <Typography>No data available</Typography>
-      )}
+      </Box>
     </Box>
   );
 };

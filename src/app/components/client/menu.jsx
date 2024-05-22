@@ -1,7 +1,7 @@
 
 import React from "react";
 import { getAllProducts } from "../../services/ProdcutService";
-
+import CartProductItem from "../../components/client/shoppingcart/cartProductItem"
 const fethedProducts = async () => {
   const res = await getAllProducts();
 
@@ -65,6 +65,7 @@ const card = async () => {
                 >
                   Add to cart
                 </a>
+                <CartProductItem product={product._id}/>
               </div>
             </div>
           </div>

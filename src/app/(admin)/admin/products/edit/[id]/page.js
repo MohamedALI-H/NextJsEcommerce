@@ -1,6 +1,6 @@
-import UpdateProduct from "../../../../components/admin/updateProduct";
- import {getAllCategories} from "../../../../services/CategoryService" 
- import {getProductById} from "../../../../services/ProdcutService"
+import UpdateProduct from "../../../../../components/admin/updateProduct";
+ import {getAllCategories} from "../../../../../services/CategoryService" 
+ import {getProductById} from "../../../../../services/ProdcutService"
  const getcategories=async()=>{
     const data=await getAllCategories()
 

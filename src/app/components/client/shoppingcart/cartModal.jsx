@@ -73,8 +73,9 @@ full duration-500 p-1"
               </button>
             </div>
           ))}
-          <article className="mt-3 flex flex-col">
-            Total : {totalPrice} TND
+         <article className="mt-3 flex flex-col">
+    Total: {totalPrice !== undefined && totalPrice !== null ? totalPrice.toFixed(2) : '0.00'} TND
+
             <button
               className="bg-emerald-50 hover:bg-emerald-500
 hover:text-white transition-colors duration-500 text-emerald-500 py-3 px-5 rounded-md w-100"

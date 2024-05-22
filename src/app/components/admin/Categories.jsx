@@ -53,7 +53,7 @@ const Categories = ({ categories }) => {
 
                 <td className="px-6 py-4">
                   <div className="flex">
-                    <a href={`/admin/Categories/${category._id}`}>
+                    <a href={`/admin/categories/${category._id}`}>
                       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-7 rounded-full mr-2">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

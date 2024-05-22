@@ -37,11 +37,11 @@ const CartProductItem = ({ product }) => {
         <img
           src={product?.imageart}
           className="card-img-top p-5"
-          alt={product.designation}
+          alt={product.description}
         />{" "}
       </div>
       <div className="text-center">
-        <div>{product.designation.substr(0, 20)} ...</div>
+        <div>{product.description} ...</div>
         <div>Prix : {product.prix} TND </div>
         <div className="flex flex-col items-center justify-center">
           <div className="flex">
@@ -54,7 +54,7 @@ const CartProductItem = ({ product }) => {
         <button className="mr-5" onClick={decreaseQuantity}>
           -
         </button>
-        <span>{quantity}</span>
+        <span>{product.stockQuantity}</span>
         <button className="ml-5" onClick={increaseQuantity}>
           +
         </button>
@@ -62,7 +62,7 @@ const CartProductItem = ({ product }) => {
       <div className="text-center">
         <button
           className="btn btn-warning"
-          disabled={product.qtestock <= 1}
+          disabled={product.stockQuantity <= 1}
           onClick={() => addToCart(product)}
         >
           Add to cart
